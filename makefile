@@ -2,7 +2,7 @@
 DOT_DIR    := dot
 FIG_DIR    := figures
 DOT_PATHS  := $(wildcard $(DOT_DIR)/*.dot)
-DOT_EXE    := neato
+DOT_EXE    := dot
 
 # add generated dot files
 STRUCT_FILES := $(wildcard $(STRUCT_DIR)/*.txt)

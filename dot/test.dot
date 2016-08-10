@@ -1,44 +1,29 @@
 digraph G {
   overlap=scale
-  root [label="ROOT files", shape=box]
-  tmva [label="TMVA"]
-  xml [label="xml", shape=box]
-  root_numpy [label="root_numpy"]
-  numpy [label="numpy"]
-  scipy [label="scipy"]
-  keras [label="Keras"]
-  tf [label="TensorFlow"]
-  atf [label="Athena TF", style=filled, fillcolor=grey]
-  h5py [label="h5py"]
-  pytables [label="PyTables"]
-  kerasout [label="Keras JSON + HDF5", shape=box]
-  hdf5 [label="HDF5", shape=box]
-  protobuf [label="protobuf", shape=box]
-  sklearn [label="sklearn"]
-  skbdt [label="sklearn -> tmva", style=filled, fillcolor=grey]
-  pandas [label="Pandas"]
 
-  root -> tmva -> xml
-  root -> root_numpy -> numpy
-  numpy -> scipy
-  numpy -> sklearn -> skbdt -> xml
-  numpy -> keras
-  numpy -> pandas
-  keras -> kerasout
-  numpy -> tf -> protobuf
-  numpy -> h5py -> hdf5
-  numpy -> pytables -> hdf5
-
-  // Athena stuff
-  athena [label="Athena /\nRootCore", shape=diamond]
-  mvautils [label="MVAUtils"]
-  lwtnn [label="lwtnn"]
-  athena -> mvautils [style=dotted]
-  athena -> lwtnn [style=dotted]
-  athena -> atf [style=dotted]
-
-  xml -> mvautils
-  kerasout -> lwtnn
-  protobuf -> atf
+  subgraph cluster_1 {
+    label="AlgTool"
+    top [label="top level"]
+  }
+  subgraph cluster_2 {
+    label="ITagTool"
+    sv1 [label="SV1"]
+    jf [label="JetFitter"]
+    ip3d [label="IP3D"]
+    iprnn [label="IPRNN"]
+    mvtm [label="MultivariateTagManager"]
+  }
+  subgraph cluster_3 {
+    label="IMultivariateJetTagger"
+    mv1 [label="MV1"]
+    dl1 [label="DL1"]
+  }
+  top -> sv1
+  top -> mvtm
+  top -> jf
+  top -> ip3d
+  top -> iprnn
+  mvtm -> mv1
+  mvtm -> dl1
 
 }
